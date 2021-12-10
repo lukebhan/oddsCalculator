@@ -1,0 +1,230 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage[margin=1in]{geometry}
+
+\title{Parlay Promo Calculator: Math Explanation}
+\author{Luke Bhan}
+
+
+\begin{document}
+\maketitle
+This document contains detailed explanations of all the math behind this promo calculator. Please use it as a reference if any part of the library is confusing.
+
+\section{Calculating the total Payout of My Bet}
+This is the most fundamental part of sportsbetting. How do I calculate how much my bet will pay. We can split this calculation into two parts. The first is the profit and the second is your initial stake back. 
+As such, we calculate the payout with the following:
+If the odds are positive:
+\begin{equation}
+  \textrm{Payout} = \textrm{Initial Stake} + \textrm{Initial Stake}*\frac{100}{\textrm{odds}} [\textrm{This term is our profit}]
+\end{equation}
+Otherwise:
+\begin{equation}
+  \textrm{Payout} = \textrm{Intial Stake} + \textrm{Initial Stake}*\frac{100}{\textrm{odds}*-1} [\textrm{This is our profit}]
+\end{equation}
+
+\section{Converting Odds From American To Decimal}
+In America, most odds wil be in the form of +220 or -110. However, sometimes it will be useful to convert to decimal odds (For example in calculation of parlay odds). To do this, we use the following equations:
+
+If the American odds are positive:
+\begin{equation}
+  \textrm{Decimal Odds} = \frac{\textrm{American Odds}}{100} + 1
+\end{equation}
+Otherwise:
+\begin{equation}
+  \textrm{Decimal Odds} = 1- \frac{100}{\textrm{American Odds}}
+\end{equation}
+
+\section{Converting Odds from Decimal To American}
+Furthermore, it is worthwhile to convert back. We use the following conversions:
+
+If the decimal odds are greater than 2:
+\begin{equation}
+  \textrm{American Odds} = (\textrm{Decimal Odds}-1)*100
+\end{equation}
+otherwise:
+\begin{equation}
+  \textrm{American Odds} = \frac{-100}{\textrm{Decimal Odds}-1}
+\end{equation}
+
+\section{Calculating the Implied Odds of a Juiced Market}
+When we bet in sportsbooks, they will alter the odds such that their market contains something called vig or juice. 
+
+\textbf{Definition: Jucie/Vig:} Juice or vig is the extra value the sportsboks will take over their believed probability. In a simple example, if a sportsbook believes either side of an outcome is equally likely, they will set their odds at -110 on each side. In this way, if a user bet both sides, they would lose $4.5$ percent over time. Another analogy would be a casinos rake in poker. It is how the sportsbook makes their money.
+
+Given this, it is worthwhile for sports betters to convert the odds given by a sportsbook into probabilities. To do this, we use the following formula (assuming American Odds):
+
+If the odds are positive or zero:
+\begin{equation}
+  \textrm{Implied Probability of Winning} = \left(\frac{100}{\textrm{odds}+100)}\right)
+\end{equation}
+Otherwise:
+\begin{equation}
+  \textrm{Implied Probability of Winning} = \left(\frac{\textrm{odds}*-1}{\textrm{odds}*-1 + 100}\right)
+\end{equation}
+
+As an example, lets calculate the odds on a simple market of +175 and -200. For the +175, we have:
+\begin{equation}
+  \textrm{Implied Probability of Winning} = \left(\frac{100}{175+100}\right) = .3636 
+\end{equation}
+
+Similary for the -200, we have:
+\begin{equation}
+  \textrm{Implied Probability of Winning} = \left(\frac{-200*-1}{-200*-1+100}\right) = .6667 
+\end{equation}
+Notice how these do not add up to 100 Percent. The value of 100 Percent is due to the Juice thaat the book takes. More on this in the next calculation.
+
+\section{Calculation the True Probability of An Events}
+Now, we see that the implied probabilities are altered due to the juice taken by the sportsbook. So how, do we calculate the true probability our bet will succeed? 
+
+Consider the example above where one side of the bet will occur with probability .3636 pecent and the other will occur with .6667 percent. To calculate the true probability, we use the following formula:
+\begin{equation}
+  \textrm{True Probability of A} = \frac{\textrm{Implied Probability of A}}{\textrm{Implied Probability of A} + \textrm{Implied Probability of B}}
+\end{equation}
+Similarly for b, we have:
+\begin{equation}
+  \textrm{True Probability of B} = \frac{\textrm{Implied Probability of B}}{\textrm{Implied Probability of A} + \textrm{Implied Probability of B}}
+\end{equation}
+Lastly, it is interesting to also see how much juice the sportbook is taking. This is simply:
+\begin{equation}
+  \textrm{Juice Take} = \textrm{Implied Probability of A} + \textrm{Implied Probability of B} - 1
+\end{equation}
+
+For our above example, we would have the following calculations:
+\begin{equation}
+  \textrm{True Probability of A} = \frac{\textrm{.3636}}{\textrm{.3636} + \textrm{.6667}} = .3529
+\end{equation}
+\begin{equation}
+  \textrm{True Probability of B} = \frac{\textrm{.6667}}{\textrm{.3636} + \textrm{.6667}} = .3529
+\end{equation}
+\begin{equation}
+  \textrm{Juice Take} = \textrm{.3636} + \textrm{.6667} - 1 = .303
+\end{equation}
+
+\section{Calculating the Expected Profit of Any Bet}
+This is the most important equation to be a profitable sports better. In this case we always want to make a profitable bet or a bet that is Plus EV (Expected Value). To calculate this, we utilize the following equation:
+
+\begin{multline}
+  \textrm{Expected Profit} = \textrm{True Probability of Winning}*(\textrm{Payout-Initial Stake})[\textrm{This is our profit term in Eq. 1}] \\- \textrm{True Probability of Losing}*\textrm{Initial Stake}
+\end{multline}
+
+In eseence, if this value is positive for any bet, in the long run that bet will make us money! As such, we will strive to place bets that will make us positive EV. 
+
+\section{A Quick Note on Why We Can Have Expected Value}
+It may be confusing to see why we might have some expected value as it is not in the best interest of the sportsbook to provide us with odds that are in our favor. However, the reasoning this can occur is due to the nature of the US Sportsbook market. There are a variety of books all competing for your business and thus want to provide you with the best odds. Therefore, some books may have odds that are profitable to you with respect to the true probability. Generally, however, there is one sportsbook  that is exceptional at calculating the true odds and that is Pinnacle - an offshore bookie. As such, we can utilzie Pinnacle's odds as our true market and compare the price from various US books with that of Pinnacle's to find odds that are in our favor with respective to the true probabilities of events occuring.
+
+\section{Calculating Parlay Odds}
+Parlay odds may seem like a mystery at first. How does one aggregate a series of different bets and thus get an accurate price for the combination? In fact, it is quite simple. We first need to convert our American odds for each bet into decimal odds. Once that is complete, we just mutliply the odds for each leg of the parlay and subtract one. Once this is done, we convert the decimal odds back into American. 
+
+In equation form this looks like:
+\begin{equation}
+  \textrm{Parlay Odds} = \textrm{DecToAm} (\prod (\textrm{AmToDec(odds)} \forall \textrm{Legs} \in \textrm{Parlay})-1)
+\end{equation}
+where DecTOAm stands for Decimal to American odds, AmToDec stands for American to Decimal odds, and $\prod$ means take the product of each term in the parentheses. The $\forall$ and $\in$ mean for every leg in the parlay. 
+
+Lets take a quick example. Imagine I have a parlay with -120, +150, and -175 odds. First, I convert these into decimal odds: 1.83, 2.5, 1.57. Then I multiply these values together: $1.83*2.5*1.57= 7.18275$. From here, I subtract 1: $7.18275-1=6.18275$. From here, I now convert this result back into American odds: 518. As such, the expected American odds for this bet are +518. Note, this is just one way to calculate Parlays and some sportsbooks may take extra juice here for a further advantage. 
+
+\section{Calculating Parlay Expected Value}
+To calculate a parlay expected value, we need to first calculate the true probability of each item in the parlay occuring. Now, assuming the parlay legs are independent ie, one parlay bet does not affect or depend on the outcome of the other, the true probability of all thre e events occuring is just their product:
+\begin{equation}
+  \textrm{Parlay True Probability} = \textrm{Prob of Event A}*\textrm{Prob of Event B}*\dots*\textrm{Prob of Event Z}
+\end{equation}
+where we multiply all the true probabilities of each event.
+
+Now, we can just use our expected value formula in Eq. 17.
+\begin{multline}
+  \textrm{Expected Profit of Parlay} = \textrm{Parlay True Probability}*\textrm{(Parlay Payoff-Stake)}  \\ - \textrm{1-Parlay True Probability}*\textrm{Stake}
+\end{multline}
+
+We utilize a small trick here where the probability of us losing is just 1-the probability of us winning. 
+
+\section{Fully Worked Parlay Example}
+Let us explore our example above. Consider that we have 3 moneylines with the odds (-145/120, 105/-115, -105/-115) and we want to take the first bet in each market. So we want to bet on three events with the odds (-145, 105, -105) and the other side of this moneyline has odds (120, -115, -115). The sportsboook is offering us +525. We want to know if it is a good bet? 
+
+Let us calculate the entirety of this parlay. First, lets calulate the payoff for betting \$100:
+\begin{equation}
+  \textrm{Total Payout} = 100*525/100 + 100 = 625
+\end{equation}
+where \$ 525 is our profit. 
+Now, to check our odds, we must find the price the sporstbook should offer us:
+\begin{equation}
+  \textrm{Decimal Odds 1} = 1 - \frac{100}{-145} = 1.689
+\end{equation}
+\begin{equation}
+  \textrm{Decimal Odds 2} = \frac{105}{100}+1 = 2.05
+\end{equation}
+\begin{equation}
+  \textrm{Decimal Odds 3} = 1 - \frac{100}{-105} = 1.952
+\end{equation}
+Next, we multiply the decimal odds and subtract 1.
+\begin{equation}
+  \textrm{Decimal Parlay Odds} = 1.689*2.05*1.952 - 1 = 5.7587
+\end{equation}
+Finally, we convert back to American odds:
+\begin{equation}
+  \textrm{American Parlay Odds} = (5.7587-1)*100 = 475.85
+\end{equation}
+As such, our sportsbook should at least be giving us odds near 475.85for us to be profitable. 
+Next, let us calculate the expected value of this bet. To do this, we first need to find the true odds of each event:
+\begin{equation}
+  \textrm{Event A, Our Side Implied Odds} = \frac{-145*-1}{-145*-1+100} = 0.5918
+\end{equation}
+\begin{equation}
+  \textrm{Event A, Opposing Side Implied Odds} = \frac{100}{120+100} = 0.4545
+\end{equation}
+
+\begin{equation}
+  \textrm{Event B, Our Side Implied Odds} = \frac{100}{115+100} = 0.4651
+\end{equation}
+\begin{equation}
+  \textrm{Event B, Oppsoing Side Implied Odds} = \frac{-115*-1}{-115*-1+100} = 0.5349
+\end{equation}
+
+\begin{equation}
+  \textrm{Event C, Our Side Implied Odds} = \frac{-105*-1}{-105*-1+100} = 0.5122
+\end{equation}
+\begin{equation}
+  \textrm{Event C, Opposing Side Implied Odds} = \frac{-115*-1}{-115*-1+100} = 0.5349
+\end{equation}
+Ok, now we have calculate the implied probabilities. Let us now find the true probabilities:
+\begin{equation}
+  \textrm{True Probability of Our Side, Event A} = \frac{0.5918}{0.5918+0.4545} = 0.5656
+\end{equation}
+\begin{equation}
+  \textrm{True Probability of Our Side, Event B} = \frac{0.4651}{0.4651+0.5349} = 0.4651
+\end{equation}
+\begin{equation}
+  \textrm{True Probability of Our Side, Event C} = \frac{0.5122}{0.5122+0.5349} = 0.4892
+\end{equation}
+From here, to get the true probability of our parlay, we have:
+\begin{equation}
+  \textrm{True Probability of Parlay Hitting} = 0.5656*0.4651*0.4892 = 0.1286
+\end{equation}
+This means our parlay will hit 12.86 percent of the time according to the true odds. 
+From here, we can now see if our odds were profitable by calculating the expected value.
+\begin{equation}
+  \textrm{Expected Profit} = 0.1286*(525) - (1-0.1286)*(100) = -19.625
+\end{equation}
+Therefore, with this bet, we still will lose \$19.62 for every \$100! Those sportsbooks aren't as nice as they same. For this reason, we really need to take advantage of promos for boosting our EV. Furthermore, this was quite the calculation. Wouldn't it be nice to have a calculator do all this for us? That is exactly what the parlay calculator does. To see it with use for this exact bet, copy the file MathExample.txt into the src folder and run it! (Note, we get slightly different results due to our rounding here. Meanwhile, the actual calculator is more accurate as it goes to 15 digits!)
+
+\section{Promos}
+Promos are offered by sportsbooks to incentiviz you to use that sportsbook. However, in many occassions they enable plus expected value situations. Let us go over a few quick promos and how they can are handled in our calculator:
+\subsection{Parlay Insurance}
+A common promo on sportsbooks is to give you insurance such that if one leg loses, you get your money back in terms a free bet. To evaluate the expected profit of this, we now need to consider three senarios: Our bet wins, only a single leg of our bet loses, more than a single bet of our leg loses. As previously explained, we know how to calculate our bet if it wins or loses. However, how do we find the probability a single leg wins. Basically, we need to find all scenarios in which 2 bets win and one loses. Consider the 3 bet scenario with true odds 0.5, 0.75, and 0.3. Then the odds these bets lose are 0.5, 0.25, and 0.7. Now, we need to take all combinations of 2 bets winning and one losing. This ends up being 0.5*0.75*0.25 (Third bet loses) + 0.5*0.25*0.3 (Second Bet loses) + 0.5*0.75*0.3 (First bet Loses). In each of these scenarios, only a single leg loses and thus multiplying them together gives the probability of each scenario. Now we can add these to find the total probability any one of these scenarios will occur. This results in 0.2375. So 23.75 percent of the time we will get our money back in this scenario. With this in mind, we can now change our EV Formula to:
+\begin{multline}
+\textrm{Expected Profit} = \textrm{True Prob Parlay Win}*\textrm{(Parlay Payoff - Stake)} + \\ \textrm{(1-True Prob One Leg Loses-True Prob Parlay Win)}*\textrm{stake}
+\end{multline}
+This equation makes sense since if we only lose one leg, the expected profit will be 0 an thus, we only need to consider that we lose our money at 1-Prob Win-Prob Lose One Leg.
+
+\subsection{Freebet No Matter What}
+This is the best promo for a parlay. It just directly adds expected value. We can formulate the new expected value equation by just adding the value of the free bet as:
+\begin{multline}
+  \textrm{Expected Profit} = \textrm{True Prob Parlay Win}*\textrm{(Parlay Payoff - Stake)} + \\ \textrm{(1-True Prob Parlay Win)}*\textrm{stake} + \textrm{Freebet Value}
+\end{multline}
+
+\subsection{Freebet if we Lose}
+This promo again just directly increases our expected value. We just now add the freebet to the stake term for the loss and formulate the new equation as:
+\begin{multline}
+  \textrm{Expected Profit} = \textrm{True Prob Parlay Win}*\textrm{(Parlay Payoff - Stake)} + \\ \textrm{(1-True Prob Parlay Win)}*\textrm{stake-freebet}
+\end{multline}
+
+\end{document}

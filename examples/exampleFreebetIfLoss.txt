@@ -1,0 +1,44 @@
+# An input file for the parlay caculator.
+# Please fill out value under each
+# comment. Note any line with # will be ignored in case you want to take notes.
+
+# Num Legs:
+3
+# Stake In dollars:
+20
+# Parlay Odds:
+1053
+
+# Vikings -0.5
+# Leg 1 odds
+-185
+# Leg 1 Market Odds
+-180
+# Leg 1 Market Odds Opposite Side
+143
+
+# Under 40.5
+# Leg 2 odds
+170
+# Leg 2 Market Odds
+150
+# Leg 2 Market Odds Opposite Side
+-190
+
+# Steelers +1.5 Half
+# Leg 3 odds
+105
+# Leg 3 Market Odds
+111
+# Leg 3 Market Odds Opposite Side
+-129
+
+# Bonus Option
+# Option 1: No Promo")
+# Option 2: Parlay if only 1 leg misses get money back
+# Option 3: Parlay where you get a free bet no matter. In the case of a player, give the line. For example, get a free bet for najee harris rushing yards, just insert the over/under line for najee harris yards in this option.")
+# Option 4: Parlay where you get a free bet if loses. Same scenario as above just only pays bonus if we lose
+3
+
+# Add Najee Harris rushing yards as free bet value
+106.5

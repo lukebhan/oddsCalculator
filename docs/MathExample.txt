@@ -1,0 +1,40 @@
+# An input file for the parlay caculator.
+# Please fill out value under each
+# comment. Note any line with # will be ignored in case you want to take notes.
+
+# Num Legs:
+3
+# Stake In dollars:
+100
+# Parlay Odds:
+525
+
+# Leg 1 odds
+-145
+# Leg 1 Market Odds
+-145
+# Leg 1 Market Odds Opposite Side
+-120
+
+# Under 40.5
+# Leg 2 odds
+105
+# Leg 2 Market Odds
+105
+# Leg 2 Market Odds Opposite Side
+-115
+
+# Steelers +1.5 Half
+# Leg 3 odds
+-105
+# Leg 3 Market Odds
+-105
+# Leg 3 Market Odds Opposite Side
+-115
+
+# Bonus Option
+# Option 1: No Promo")
+# Option 2: Parlay if only 1 leg misses get money back
+# Option 3: Parlay where you get a free bet no matter. In the case of a player, give the line. For example, get a free bet for najee harris rushing yards, just insert the over/under line for najee harris yards in this option.")
+# Option 4: Parlay where you get a free bet if loses. Same scenario as above just only pays bonus if we lose
+1
