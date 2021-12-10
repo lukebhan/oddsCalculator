@@ -1,4 +1,4 @@
-*** Parlay Expected Value Calculator ***
+<h1> Parlay Expected Value Calculator </h1>
 
 This is a quick parlay calculator that considers some of the common promos offered. It is used to identify profitable bets and promos from various sportsbooks. 
 Currently, the calculator supports the following:
@@ -14,7 +14,7 @@ Currently, the calculator supports the following:
   </ul>
 </ul> 
 
-*** Usage ***
+<h2>Usage</h2>
 For usage, one must run the program by typing:
 ```python parlayPromo.py```
 This calculator was tested and verified using Python 3.8. 
